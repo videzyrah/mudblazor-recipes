@@ -1,0 +1,62 @@
+﻿@page "/"
+@inject HttpClient Http
+
+
+<div >
+<MudText Typo="Typo.h6">Recipe list using MudSimpleTable</MudText>
+
+</div>
+
+@if (recipes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<MudSimpleTable Style="overflow-x: auto;">
+<thead>
+    <tr>
+        @foreach (var h in headings)
+        {
+            <th>@h</th>
+        }
+    </tr>
+</thead>
+<tbody>
+    @foreach (var recipe in recipes)
+    {
+        <tr>
+                <td>@recipe.Title</td>
+                <td>@recipe.Instruction</td>
+                <td>@recipe.Note</td>
+        </tr>
+    }
+</tbody>
+</MudSimpleTable>
+}
+@code {
+    string[] headings = { "Title", "Instructions", "Notes" };
+    string[] rows = {
+        @"Hot-dog microwave edible",
+        @"Egg 'fry on medium' cayenne",
+        @"Apple raw vitaminC",
+    };
+     private RecipeList[] recipes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        recipes = await Http.GetFromJsonAsync<RecipeList[]>("sample-data/recipes.json");
+    }
+
+    public class RecipeList
+    {
+        public string Title { get; set; }
+
+        public string Instruction { get; set; }
+
+        public string Note { get; set; }
+    }
+}
+
+
+

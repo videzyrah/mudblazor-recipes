@@ -1,0 +1,52 @@
+@page "/fetchrecipedata"
+@inject HttpClient Http
+
+<h1>Recipes</h1>
+
+<p>This component is a display view of recipes instead of weather data</p>
+<br>
+
+@if (recipes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Instructions</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recipe in recipes)
+            {
+                <tr>
+                    <td>@recipe.Title</td>
+                    <td>@recipe.Instruction</td>
+                    <td>@recipe.Note</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private RecipeList[] recipes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        recipes = await Http.GetFromJsonAsync<RecipeList[]>("sample-data/recipes.json");
+    }
+
+    public class RecipeList
+    {
+        public string Title { get; set; }
+
+        public string Instruction { get; set; }
+
+        public string Note { get; set; }
+    }
+}
