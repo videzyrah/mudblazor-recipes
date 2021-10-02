@@ -2,10 +2,12 @@
 @inject HttpClient Http
 
 
-<div >
-<MudText Typo="Typo.h6">Recipe list using MudSimpleTable</MudText>
-
-</div>
+<MudPaper Class="pa-6 ml-16 mr-16 mt-6" >
+  <MudLink Typo="Typo.h4" style="text-align:center" Href="https://codepen.io/theothergregstull/pen/xxGmxoq">Comparison Codepen (pure html/css)</MudLink>
+</MudPaper>
+<MudPaper Class="pa-6 ml-16 mr-16 mt-6 mud-theme-success" >
+  <MudText Typo="Typo.h3" style="text-align:center">Recipe list using MudSimpleTable</MudText>
+</MudPaper>
 
 @if (recipes == null)
 {
@@ -13,7 +15,7 @@
 }
 else
 {
-<MudSimpleTable Style="overflow-x: auto;">
+<MudSimpleTable Class = "pa-6 ma-6" Style="overflow-x: auto;">
 <thead>
     <tr>
         @foreach (var h in headings)
