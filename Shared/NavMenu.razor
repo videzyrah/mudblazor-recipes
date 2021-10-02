@@ -1,9 +1,9 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Greg's Blazor BS</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿<MudAppBar Color="Color.Primary" Fixed="false" Elevation="0">
+    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" />
+    <MudText>Greg's BlazorWasm App</MudText>
+    <MudSpacer />
+    <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/videzyrah/mudblazor-recipes"  />
+</MudAppBar>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
@@ -14,12 +14,12 @@
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch weather data
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch weather data (to be deleted)
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="fetchrecipedata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch recipe data
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch recipe data (sans MudBlazor)
             </NavLink>
         </li>
     </ul>

@@ -2,17 +2,22 @@
 <MudThemeProvider Theme="darkTheme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
-<div>
-    <div>
-        <NavMenu />
-    </div>
 
-    <div>
-        <div>
+
+<MudLayout>
+    <MudAppBar Elevation="3">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" />
+        <MudText>Greg's BlazorWasm App</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/videzyrah/mudblazor-recipes" />
+    </MudAppBar>
+    <MudMainContent Class="pt-16 px-16">
+        <MudContainer Class="mt-6">
             @Body
-        </div>
-    </div>
-</div>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+    
 @code {
     MudTheme darkTheme = new MudTheme()
     {
