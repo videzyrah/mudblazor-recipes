@@ -1,0 +1,52 @@
+@page "/externalrecipedata"
+@inject HttpClient Http
+
+<h1>Greg's Recipe List Overview</h1>
+
+<p>This page is a table view of recipes fetched from an externally built api.</p>
+<br>
+
+@if (recipes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Procedure</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recipe in recipes)
+            {
+                <tr>
+                    <td>@recipe.Name</td>
+                    <td>@recipe.Procedure</td>
+                    <td>@recipe.Notes</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private RecipeList[] recipes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        recipes = await Http.GetFromJsonAsync<RecipeList[]>("https://gstulldjangorestapi.herokuapp.com/recipes/");
+    }
+
+    public class RecipeList
+    {
+        public string Name { get; set; }
+
+        public string Procedure { get; set; }
+
+        public string Notes { get; set; }
+    }
+}
