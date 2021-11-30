@@ -1,0 +1,56 @@
+@page "/externalplantdata"
+@inject HttpClient Http
+
+<h1>Gainesville Online Farmer's Market</h1>
+
+<p>Refactoring from Vue to Blazor WASM</p>
+<br>
+
+@if (plants == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<MudSimpleTable Class = "pa-6 ma-6" Style="overflow-x: auto;">
+<thead>
+    <tr>
+        @foreach (var h in headings)
+        {
+            <th>@h</th>
+        }
+    </tr>
+</thead>
+<tbody>
+    @foreach (var plant in plants)
+    {
+        <tr>
+            <td><img @bind-src=@plant.Image @bind-src:event="onload" style="width:100px;height:100px;" /></td>
+                    <td>@plant.Screen_name</td>
+                    <td>$ @plant.Price</td>   
+        </tr>
+    }
+</tbody>
+</MudSimpleTable>
+    
+}
+
+@code {
+    string[] headings = { "Image", "Name", "Price" };
+    private PlantList[] plants;
+
+    protected override async Task OnInitializedAsync()
+    {
+        plants = await Http.GetFromJsonAsync<PlantList[]>("https://gstulldjangorestapi.herokuapp.com/plants/");
+    }
+
+    public class PlantList
+    {
+        public string Image { get; set; }
+
+        public string Screen_name { get; set; }
+
+        public float Price { get; set; }
+
+    }
+}
