@@ -1,10 +1,18 @@
 @page "/externalplantdata"
 @inject HttpClient Http
 
-<h1>Gainesville Online Farmer's Market</h1>
-
+<div text-align:center>
+  <h1>Gainesville Online Farmer's Market</h1>
+</div>
 <p>Refactoring from Vue to Blazor WASM</p>
 <br>
+
+<ul>
+    <li><code>Enter your maximum price point below to filter this list</code>: $@inputValue</li>
+</ul>
+<p>
+    <input @bind="inputValue" @bind:event="oninput" />
+</p>
 
 @if (plants == null)
 {
@@ -25,9 +33,15 @@ else
     @foreach (var plant in plants)
     {
         <tr>
-            <td><img @bind-src=@plant.Image @bind-src:event="onload" style="width:100px;height:100px;" /></td>
-                    <td>@plant.Screen_name</td>
-                    <td>$ @plant.Price</td>   
+            @if (plant.Price <= inputValue)
+            {
+            <td><img @bind-src=@plant.Image @bind-src:event="onchange" style="width:100px;height:100px;" /></td>
+            <td>@plant.Screen_name</td>
+            <td>$ @plant.Price</td> 
+            <td>@foreach (var retailer in plant.Retailers)
+                {<span>@((MarkupString)retailer)</span>}   
+            </td>
+            }
         </tr>
     }
 </tbody>
@@ -36,7 +50,8 @@ else
 }
 
 @code {
-    string[] headings = { "Image", "Name", "Price" };
+    public int inputValue = 100;
+    string[] headings = { "Image", "Name", "Average Value", "Growers" };
     private PlantList[] plants;
 
     protected override async Task OnInitializedAsync()
@@ -51,6 +66,8 @@ else
         public string Screen_name { get; set; }
 
         public float Price { get; set; }
+
+        public string[] Retailers { get; set; }
 
     }
 }
