@@ -38,7 +38,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        recipes = await Http.GetFromJsonAsync<RecipeList[]>("https://gstulldjangorestapi.herokuapp.com/recipes/");
+        recipes = await Http.GetFromJsonAsync<RecipeList[]>("https://gregstull.fly.dev/recipes/");
     }
 
     public class RecipeList

@@ -56,7 +56,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        plants = await Http.GetFromJsonAsync<PlantList[]>("https://gstulldjangorestapi.herokuapp.com/plants/");
+        plants = await Http.GetFromJsonAsync<PlantList[]>("https://gregstull.fly.dev/plants/");
     }
 
     public class PlantList
